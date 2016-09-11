@@ -40,3 +40,62 @@ class TestParametrizedState:
         expected = ParametrizedState(Position(0, 1))
         assert param == 1
         assert actual == expected
+
+    def test_generate_all_tolerance_1(self):
+        generated = ParametrizedState.generate_all(1)
+        expected = [
+            ParametrizedState(),
+            ParametrizedState(Position(0, 0)),
+            ParametrizedState(Position(0, 1)),
+            ParametrizedState(Position(0, 1), Position(1, 1)),
+            ParametrizedState(Position(0, 1), Position(2, 1)),
+            ParametrizedState(Position(0, 1), Position(1, 1), Position(2, 1)),
+        ]
+
+        assert generated == expected
+
+    def test_generate_all_tolerance_2(self):
+        generated = ParametrizedState.generate_all(2)
+        expected = [
+            ParametrizedState(),
+            ParametrizedState(Position(0, 0)),
+            ParametrizedState(Position(0, 1)),
+            ParametrizedState(Position(0, 2)),
+            ParametrizedState(Position(0, 1), Position(1, 1)),
+            ParametrizedState(Position(0, 1), Position(2, 1)),
+            ParametrizedState(Position(0, 1), Position(2, 2)),
+            ParametrizedState(Position(0, 1), Position(3, 2)),
+            ParametrizedState(Position(0, 2), Position(2, 1)),
+            ParametrizedState(Position(0, 2), Position(3, 1)),
+            ParametrizedState(Position(0, 2), Position(1, 2)),
+            ParametrizedState(Position(0, 2), Position(2, 2)),
+            ParametrizedState(Position(0, 2), Position(3, 2)),
+            ParametrizedState(Position(0, 2), Position(4, 2)),
+            ParametrizedState(Position(0, 1), Position(1, 1), Position(2, 1)),
+            ParametrizedState(Position(0, 1), Position(1, 1), Position(3, 2)),
+            ParametrizedState(Position(0, 1), Position(2, 2), Position(3, 2)),
+            ParametrizedState(Position(0, 2), Position(2, 1), Position(3, 1)),
+            ParametrizedState(Position(0, 2), Position(2, 1), Position(4, 2)),
+            ParametrizedState(Position(0, 2), Position(3, 1), Position(1, 2)),
+            ParametrizedState(Position(0, 2), Position(1, 2), Position(2, 2)),
+            ParametrizedState(Position(0, 2), Position(1, 2), Position(3, 2)),
+            ParametrizedState(Position(0, 2), Position(1, 2), Position(4, 2)),
+            ParametrizedState(Position(0, 2), Position(2, 2), Position(3, 2)),
+            ParametrizedState(Position(0, 2), Position(2, 2), Position(4, 2)),
+            ParametrizedState(Position(0, 2), Position(3, 2), Position(4, 2)),
+            ParametrizedState(Position(0, 2), Position(1, 2), Position(2, 2), Position(3, 2)),
+            ParametrizedState(Position(0, 2), Position(1, 2), Position(2, 2), Position(4, 2)),
+            ParametrizedState(Position(0, 2), Position(1, 2), Position(3, 2), Position(4, 2)),
+            ParametrizedState(Position(0, 2), Position(2, 2), Position(3, 2), Position(4, 2)),
+            ParametrizedState(Position(0, 2), Position(1, 2), Position(2, 2), Position(3, 2), Position(4, 2)),
+        ]
+
+        assert generated == expected
+
+    def test_generate_all_tolerance_3(self):
+        generated = ParametrizedState.generate_all(3)
+        assert len(generated) == 197
+
+    def test_generate_all_tolerance_4(self):
+        generated = ParametrizedState.generate_all(4)
+        assert len(generated) == 1354
