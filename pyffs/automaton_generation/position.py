@@ -13,6 +13,7 @@ class Position:
             for k, b in enumerate(bit_vector[1:]):
                 if b == 1:
                     result.append(Position(self.i + k + 2, self.e + k + 1))
+                    break
 
         return [p for p in result if p.e <= tolerance]
 
