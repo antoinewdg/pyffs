@@ -4,7 +4,7 @@ def _key_position_error_first(p):
 
 class PositionSet:
     def __init__(self, *args):
-        self.positions = sorted(args, key=_key_position_error_first)
+        self.positions = tuple(sorted(args, key=_key_position_error_first))
         self.min_boundary = 0
         if args:
             self.min_boundary = min(args, key=lambda p: p.i).i

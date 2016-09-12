@@ -31,3 +31,6 @@ class Position:
 
     def __eq__(self, other):
         return other.i == self.i and other.e == self.e
+
+    def __hash__(self):
+        return hash((self.i, self.e))

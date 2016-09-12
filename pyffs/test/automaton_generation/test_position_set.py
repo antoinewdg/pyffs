@@ -4,7 +4,7 @@ from pyffs.automaton_generation import PositionSet, Position, reduced_union
 class TestPositionsSet:
     def test_construction(self):
         s = PositionSet(Position(1, 1), Position(0, 3), Position(2, 0))
-        expected = [Position(2, 0), Position(1, 1), Position(0, 3)]
+        expected = (Position(2, 0), Position(1, 1), Position(0, 3))
 
         assert s.positions == expected
         assert s.min_boundary == 0

@@ -65,3 +65,13 @@ class ParametrizedState:
 
     def __repr__(self):
         return repr(self.position_set)
+
+    def __hash__(self):
+        return hash(self.position_set.positions)
+
+    def __iter__(self):
+        for x in self.position_set.positions:
+            yield x
+
+    def __len__(self):
+        return len(self.position_set.positions)
