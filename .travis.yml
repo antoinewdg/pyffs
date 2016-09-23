@@ -2,8 +2,9 @@ language: python
 python:
   - "3.5"
 
+install:
+  - pip install -r requirements-dev.txt
+  - pip install coveralls
 
-
-install: pip install -r requirements-dev.txt
-
-script: PYFFS_SETTINGS_MODE=test python -m pytest -s
+script:
+  - PYFFS_SETTINGS_MODE=test coverage run --source=pytest python -m pytest -s
