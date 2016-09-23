@@ -1,0 +1,15 @@
+language: python
+cache: pip
+
+python:
+  - "3.5"
+
+install:
+  - pip install -r requirements-dev.txt
+  - pip install python-coveralls
+
+script:
+  - PYFFS_SETTINGS_MODE=test python -m pytest -s --cov-report= --cov=pyffs/
+
+after_success:
+  - coveralls
