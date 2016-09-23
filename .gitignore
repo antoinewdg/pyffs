@@ -1,2 +1,5 @@
 .idea/
 .cache/
+.env
+.coverage
+pyffs/generated/
