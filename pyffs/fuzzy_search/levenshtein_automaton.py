@@ -1,11 +1,12 @@
 from collections import namedtuple
 
-from pyffs.transition_matrix import transition_matrix_manager, State
+from pyffs.core import State
+from pyffs.automaton_management import manager
 
 
 class LevenshteinAutomaton:
     def __init__(self, tolerance, query_word, alphabet):
-        self._matrix, _, self._states_i_e = transition_matrix_manager.get_for_tolerance(tolerance)
+        self._automaton = manager.get_for_tolerance(tolerance)
         self._word = query_word
         self.tolerance = tolerance
 
@@ -13,6 +14,8 @@ class LevenshteinAutomaton:
         for i in range(len(self._word) + 1):
             for symbol in alphabet:
                 self._precomputed_bit_vectors[i][symbol] = self._compute_bit_vector(symbol, i)
+
+        self._i_minus_e_threshold = len(self._word) - self.tolerance - 1
 
     def _compute_bit_vector(self, symbol, i):
         bit_list = []
@@ -22,11 +25,13 @@ class LevenshteinAutomaton:
         return tuple(bit_list)
 
     def transition(self, state: State, symbol):
-        new_state = self._matrix[state.id][self._precomputed_bit_vectors[state.min_boundary][symbol]]
+        bit_vector = self._precomputed_bit_vectors[state.min_boundary][symbol]
+        new_state = self._automaton.matrix[state.id][bit_vector]
         return State(new_state.id, new_state.min_boundary + state.min_boundary)
 
     def is_final(self, state: State):
-        return self._states_i_e[state.id] + state.min_boundary >= len(self._word) - self.tolerance - 1
+        i_minus_e = self._automaton.max_i_minus_e[state.id]
+        return i_minus_e + state.min_boundary >= self._i_minus_e_threshold
 
     @staticmethod
     def is_empty_state(state: State):

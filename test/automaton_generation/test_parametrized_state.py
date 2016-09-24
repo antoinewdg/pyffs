@@ -1,4 +1,4 @@
-from pyffs.automaton_generation import ParametrizedState, PositionSet, Position
+from pyffs.automaton_generation.parametrized_state import ParametrizedState, PositionSet, Position
 
 
 class TestParametrizedState:

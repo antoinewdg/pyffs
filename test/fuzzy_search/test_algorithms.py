@@ -1,12 +1,12 @@
 from pyffs.fuzzy_search.algorithms import find_all_words_within_tolerance
-from pyffs.automaton_generation import generate_transition_matrix_and_save_to_file
+from pyffs.automaton_management import generate_automaton_to_file
 from test.utils import clean_generated_dir
 
 
 def test_find_all_words_within_tolerance():
-    generate_transition_matrix_and_save_to_file(0)
-    generate_transition_matrix_and_save_to_file(1)
-    generate_transition_matrix_and_save_to_file(2)
+    generate_automaton_to_file(0)
+    generate_automaton_to_file(1)
+    generate_automaton_to_file(2)
 
     dictionary = [
         'car',

@@ -12,4 +12,4 @@ script:
   - PYFFS_SETTINGS_MODE=test python -m pytest -s --cov-report= --cov=pyffs/
 
 after_success:
-  - coveralls
+  - bash <(curl -s https://codecov.io/bash)
