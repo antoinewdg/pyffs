@@ -46,3 +46,27 @@ def test_find_all_words_within_tolerance():
     assert set(result) == {'car', 'rat', 'bat', 'carp', 'mate'}
 
     clean_generated_dir()
+
+
+def test_find_all_words_within_tolerance_with_errors():
+    words = [
+        'man',
+        'manhattan',
+        'many',
+        'manny',
+        'han',
+        'pan',
+        'pancake',
+        'dog',
+        'cat'
+    ]
+
+    result = find_all_words_within_tolerance('man', words, 2, True)
+    assert set(result) == {
+        (0, 'man'),
+        (1, 'many'),
+        (1, 'han'),
+        (1, 'pan'),
+        (2, 'manny'),
+        (2, 'cat')
+    }

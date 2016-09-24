@@ -33,6 +33,12 @@ class LevenshteinAutomaton:
         i_minus_e = self._automaton.max_i_minus_e[state.id]
         return i_minus_e + state.min_boundary >= self._i_minus_e_threshold
 
+    def get_error(self, state: State):
+        positions = self._automaton.states[state.id].positions
+        min_e = min((p.e for p in positions
+                     if p.i - p.e + state.min_boundary >= self._i_minus_e_threshold))
+        return min_e
+
     @staticmethod
     def is_empty_state(state: State):
         return state.id == 0
