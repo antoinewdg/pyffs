@@ -1,6 +1,6 @@
 import csv
 
-from .state import State
+from .state import State, state_from_string
 
 
 def save_matrix_to_file(matrix, file, bit_vectors, states_i_e):
@@ -32,6 +32,6 @@ def read_matrix_from_file(file):
 
     for id_, line in enumerate(reader):
         for b_index, s in enumerate(line):
-            matrix[id_][bit_vectors[b_index]] = State.from_string(s)
+            matrix[id_][bit_vectors[b_index]] = state_from_string(s)
 
     return matrix, bit_vectors, states_i_e
