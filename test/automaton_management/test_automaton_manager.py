@@ -2,8 +2,8 @@ from time import time
 
 import pytest
 
-from pyffs.automaton_generation import generate_transition_matrix_and_save_to_file
-from pyffs.transition_matrix.manager import Manager
+from pyffs.automaton_management import generate_automaton_to_file
+from pyffs.automaton_management.automaton_manager import Manager
 from test.utils import clean_generated_dir
 
 
@@ -11,7 +11,7 @@ class TestManager:
     def test_memoization_works(self):
         # The file need to be generated beforehand
         clean_generated_dir()
-        generate_transition_matrix_and_save_to_file(2)
+        generate_automaton_to_file(2)
 
         manager = Manager()
         t0 = time()
@@ -23,6 +23,7 @@ class TestManager:
         second_time = time() - t0
 
         assert first_time / second_time > 100
+        clean_generated_dir()
 
     def test_exception_when_file_not_generated(self):
         clean_generated_dir()

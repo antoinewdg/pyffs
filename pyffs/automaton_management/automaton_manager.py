@@ -1,28 +1,27 @@
 from os.path import join, isfile
 
 from pyffs.settings import MATRIX_FILE_NAMING, GENERATED_DIR
+from pyffs.core.universal_automaton import read_from_file
 
-from .utils import read_matrix_from_file
 
-
-def _load_matrix(tolerance):
+def _load(tolerance):
     filename = join(GENERATED_DIR, MATRIX_FILE_NAMING % tolerance)
     if not isfile(filename):
         raise Exception("Transitions matrices have not been generated")
 
     with open(filename, 'r') as file:
-        return read_matrix_from_file(file)
+        return read_from_file(file)
 
 
 class Manager:
     def __init__(self):
-        self._matrices = {}
+        self._memoized = {}
 
     def get_for_tolerance(self, tolerance):
-        if tolerance not in self._matrices:
-            self._matrices[tolerance] = _load_matrix(tolerance)
+        if tolerance not in self._memoized:
+            self._memoized[tolerance] = _load(tolerance)
 
-        return self._matrices[tolerance]
+        return self._memoized[tolerance]
 
 
-transition_matrix_manager = Manager()
+manager = Manager()

@@ -1,4 +1,5 @@
-from pyffs.automaton_generation import PositionSet, Position, reduced_union
+from pyffs.automaton_generation.position_set import PositionSet, reduced_union
+from pyffs.automaton_generation.position import Position
 
 
 class TestPositionsSet:
