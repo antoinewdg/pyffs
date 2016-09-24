@@ -1,6 +1,3 @@
-import sys
-from os.path import dirname, join
-
 import click
 
 from pyffs.automaton_management import generate_automaton_to_file
