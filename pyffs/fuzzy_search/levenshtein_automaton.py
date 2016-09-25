@@ -15,7 +15,7 @@ class LevenshteinAutomaton:
             for symbol in alphabet:
                 self._precomputed_bit_vectors[i][symbol] = self._compute_bit_vector(symbol, i)
 
-        self._i_minus_e_threshold = len(self._word) - self.tolerance - 1
+        self._i_minus_e_threshold = len(self._word) - self.tolerance
 
     def _compute_bit_vector(self, symbol, i):
         bit_list = []
@@ -34,10 +34,9 @@ class LevenshteinAutomaton:
         return i_minus_e + state.min_boundary >= self._i_minus_e_threshold
 
     def get_error(self, state: State):
-        positions = self._automaton.states[state.id].positions
-        min_e = min((p.e for p in positions
-                     if p.i - p.e + state.min_boundary >= self._i_minus_e_threshold))
-        return min_e
+        i_minus_e = self._automaton.max_i_minus_e[state.id]
+        return len(self._word) - (i_minus_e + state.min_boundary)
+
 
     @staticmethod
     def is_empty_state(state: State):
