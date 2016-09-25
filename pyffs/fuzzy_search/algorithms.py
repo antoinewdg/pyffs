@@ -4,12 +4,8 @@ from .trie import Trie
 from .levenshtein_automaton import LevenshteinAutomaton
 
 
-def find_all_words_within_tolerance(query, words, tolerance):
-    alphabet = set()
-    trie = Trie(words, alphabet)
-    automaton = LevenshteinAutomaton(tolerance, query, alphabet)
+def trie_automaton_intersection(automaton, trie, include_error):
     results = []
-
     if trie.root == -1:
         return []
 
@@ -18,7 +14,10 @@ def find_all_words_within_tolerance(query, words, tolerance):
         trie_node, state, current_word = stack.pop()
 
         if trie.is_final(trie_node) and automaton.is_final(state):
-            results.append(current_word)
+            if include_error:
+                results.append((automaton.get_error(state), current_word))
+            else:
+                results.append(current_word)
 
         for symbol in trie.get_children_symbols(trie_node):
             next_state = automaton.transition(state, symbol)
@@ -31,3 +30,11 @@ def find_all_words_within_tolerance(query, words, tolerance):
             ))
 
     return results
+
+
+def find_all_words_within_tolerance(query, words, tolerance, include_error=False):
+    alphabet = set()
+    trie = Trie(words, alphabet)
+    automaton = LevenshteinAutomaton(tolerance, query, alphabet)
+
+    return trie_automaton_intersection(automaton, trie, include_error)
