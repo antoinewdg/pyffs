@@ -1,4 +1,4 @@
-from pyffs.core import State, ParametrizedState, Position
+from pyffs.core import State
 from pyffs.automaton_generation import generate_universal_automaton
 
 
@@ -9,9 +9,7 @@ def test_generate_automaton_0():
     ]
 
     automaton = generate_universal_automaton(0)
-    states = [ParametrizedState(), ParametrizedState(Position(0, 0))]
 
-    assert automaton.states == states
     assert automaton.matrix == expected
     assert automaton.bit_vectors == [(), (0,), (1,)]
     assert automaton.max_i_minus_e == [0, 0]
