@@ -7,8 +7,8 @@ from pyffs.core import ParametrizedState, Position
 def test_write_to_file():
     file = StringIO()
     matrix = [
-        {(): State(0, 0), (1,): State(0, 0), (0,): State(0, 0)},
-        {(): State(0, 0), (1,): State(1, 1), (0,): State(0, 0)}
+        [State(0, 0), State(0, 0), State(0, 0)],
+        [State(0, 0), State(0, 0), State(1, 1)],
     ]
     bit_vectors = [(), (0,), (1,)]
     states_i_e = [0, 0]
@@ -25,8 +25,8 @@ def test_read_from_file():
     file = StringIO(";0-0\r\n;0;1\r\n0;0\r\n0,0;0,0;0,0\r\n0,0;0,0;1,1\r\n")
     automaton = read_from_file(file)
     expected = [
-        {(): State(0, 0), (1,): State(0, 0), (0,): State(0, 0)},
-        {(): State(0, 0), (1,): State(1, 1), (0,): State(0, 0)}
+        [State(0, 0), State(0, 0), State(0, 0)],
+        [State(0, 0), State(0, 0), State(1, 1)],
     ]
     states = [ParametrizedState(),
               ParametrizedState(Position(0, 0))]

@@ -9,20 +9,20 @@ class LevenshteinAutomaton:
         self._automaton = manager.get_for_tolerance(tolerance)
         self._word = query_word
         self.tolerance = tolerance
+        self._bit_vectors_ids = {b: i for i, b in enumerate(self._automaton.bit_vectors)}
 
         self._precomputed_bit_vectors = [{} for _ in range(len(query_word) + 1)]
         for i in range(len(self._word) + 1):
             for symbol in alphabet:
-                self._precomputed_bit_vectors[i][symbol] = self._compute_bit_vector(symbol, i)
+                self._precomputed_bit_vectors[i][symbol] = self._compute_bit_vector_id(symbol, i)
 
         self._i_minus_e_threshold = len(self._word) - self.tolerance
 
-    def _compute_bit_vector(self, symbol, i):
+    def _compute_bit_vector_id(self, symbol, i):
         bit_list = []
         for c in self._word[i:min(i + 2 * self.tolerance + 1, len(self._word))]:
             bit_list.append(int(c == symbol))
-
-        return tuple(bit_list)
+        return self._bit_vectors_ids[tuple(bit_list)]
 
     def transition(self, state: State, symbol):
         bit_vector = self._precomputed_bit_vectors[state.min_boundary][symbol]
@@ -36,7 +36,6 @@ class LevenshteinAutomaton:
     def get_error(self, state: State):
         i_minus_e = self._automaton.max_i_minus_e[state.id]
         return len(self._word) - (i_minus_e + state.min_boundary)
-
 
     @staticmethod
     def is_empty_state(state: State):

@@ -12,12 +12,12 @@ def generate_universal_automaton(tolerance):
     states_core = [core.ParametrizedState(*s.position_set) for s in states]
 
     states_ids = {s: i for i, s in enumerate(states)}
-    matrix = [{} for _ in range(len(states))]
+    matrix = [[-1 for __ in range(len(bit_vectors))] for _ in range(len(states))]
 
     for i, s in enumerate(states):
-        for b in bit_vectors:
+        for b_id, b in enumerate(bit_vectors):
             min_boundary, new_state = s.transition(b, tolerance)
-            matrix[i][b] = core.State(states_ids[new_state], min_boundary)
+            matrix[i][b_id] = core.State(states_ids[new_state], min_boundary)
 
     max_i_minus_e = [0 for _ in range(len(states))]
     for i, state in enumerate(states):
