@@ -39,8 +39,8 @@ class LevenshteinAutomaton:
 
     @staticmethod
     def is_empty_state(state: State):
-        return state.id == 0
+        return state.id == -1
 
     @staticmethod
     def get_initial_state():
-        return State(id=1, min_boundary=0)
+        return State(id=0, min_boundary=0)
