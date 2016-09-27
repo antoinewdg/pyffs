@@ -3,7 +3,7 @@
 .env
 .coverage
 pyffs/generated/
-
+.tox/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
