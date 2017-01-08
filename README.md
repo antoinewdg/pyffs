@@ -7,5 +7,7 @@ Tests on PyPy3.3 show promising results.
 
 All the implementation is based on [Fast String Correction with Levenshtein-Automata](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.16.652) by Klaus Schulz , Stoyan Mihov.
 
-This project is a personal project and not meant to be used as a library, but if you could 
-be interested by this please let me know.
+
+## Documentation
+
+This project has currently no documentation because I do not see anyone having an immediate use of it besides myself, if you feel it could be of any use to you or have any question feel free to contact me.
