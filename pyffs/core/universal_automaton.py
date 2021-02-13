@@ -13,7 +13,7 @@ def state_from_string(s):
     return State(id_, min_boundary)
 
 
-def write_to_file(automaton: UniversalAutomaton, file):
+def write_to_file(automaton, file):
     writer = csv.writer(file, delimiter=';')
 
     n_states = len(automaton.max_i_minus_e)

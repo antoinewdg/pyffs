@@ -1,15 +1,16 @@
 language: python
 cache: pip
 
-python:
-  - "3.5"
+env:
+  - TOX_ENV=py33
+  - TOX_ENV=py34
+  - TOX_ENV=py35
 
 install:
-  - pip install -r requirements-dev.txt
-  - pip install python-coveralls
+  - pip install tox
 
 script:
-  - PYFFS_SETTINGS_MODE=test python -m pytest -s --cov-report= --cov=pyffs/
+  - tox -e $TOX_ENV
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
