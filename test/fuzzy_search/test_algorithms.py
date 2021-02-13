@@ -4,14 +4,10 @@ import time
 from pyffs.fuzzy_search import Trie, LevenshteinAutomaton
 from pyffs.fuzzy_search.algorithms import (find_all_words_within_tolerance,
                                            trie_automaton_intersection)
-from pyffs.automaton_management import generate_automaton_to_file
-from test.utils import clean_generated_dir, get_asset_file
+from test.utils import get_asset_file
 
 
 def test_find_all_words_within_tolerance():
-    generate_automaton_to_file(0)
-    generate_automaton_to_file(1)
-    generate_automaton_to_file(2)
 
     dictionary = [
         'car',
@@ -50,8 +46,6 @@ def test_find_all_words_within_tolerance():
     result = find_all_words_within_tolerance('cat', dictionary, 2)
     assert set(result) == {'car', 'rat', 'bat', 'carp', 'mate'}
 
-    clean_generated_dir()
-
 
 def test_find_all_words_within_tolerance_with_errors():
     words = [
@@ -78,11 +72,6 @@ def test_find_all_words_within_tolerance_with_errors():
 
 
 def test_find_all_words_within_tolerance_advanced():
-    generate_automaton_to_file(0)
-    generate_automaton_to_file(1)
-    generate_automaton_to_file(2)
-    # generate_automaton_to_file(3)
-    # generate_automaton_to_file(4)
 
     fa = open(get_asset_file('english_words.txt'))
     words = [w.rstrip() for w in fa.readlines()]
@@ -98,7 +87,6 @@ def test_find_all_words_within_tolerance_advanced():
             query, tolerance = next(matches_reader)
             tolerance = int(tolerance)
 
-
             matches = next(matches_reader)
             distances = [int(d) for d in next(matches_reader)]
             expected = set(zip(distances, matches))
@@ -107,6 +95,5 @@ def test_find_all_words_within_tolerance_advanced():
             result = trie_automaton_intersection(automaton, trie, True)
             assert set(result) == expected
 
-            # if tolerance < 3:
     except StopIteration:
         pass
